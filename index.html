@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nestique Collection — Beautifully Organised Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:    #F7F4EF;
+    --stone:    #E8E2D9;
+    --warm-tan: #C9B99A;
+    --clay:     #A8896C;
+    --bark:     #5C4A36;
+    --charcoal: #2B2520;
+    --white:    #FFFFFF;
+    --sage:     #8C9E8A;
+    --blush:    #E8D5C4;
+
+    --display: 'Cormorant Garamond', Georgia, serif;
+    --body:    'Jost', sans-serif;
+
+    --space-xs:  8px;
+    --space-sm:  16px;
+    --space-md:  32px;
+    --space-lg:  64px;
+    --space-xl:  96px;
+    --space-2xl: 140px;
+
+    --max-w: 1280px;
+    --radius: 2px;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── UTILITY ── */
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--space-md); }
+  .eyebrow {
+    font-family: var(--body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--clay);
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .display-heading {
+    font-family: var(--display);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--bark);
+    color: var(--cream);
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .btn-primary:hover { background: var(--charcoal); transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-block;
+    padding: 13px 35px;
+    background: transparent;
+    color: var(--bark);
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--warm-tan);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .btn-ghost:hover { background: var(--bark); color: var(--cream); border-color: var(--bark); }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announcement {
+    background: var(--bark);
+    color: var(--cream);
+    text-align: center;
+    padding: 10px var(--space-md);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    font-weight: 400;
+  }
+  .announcement span { opacity: 0.6; margin: 0 12px; }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247,244,239,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--stone);
+    transition: box-shadow 0.3s ease;
+  }
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 20px var(--space-md);
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+  .nav-left, .nav-right { display: flex; align-items: center; gap: var(--space-md); }
+  .nav-right { justify-content: flex-end; }
+  .nav-left a, .nav-right a {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--charcoal);
+    transition: color var(--transition);
+    position: relative;
+  }
+  .nav-left a::after, .nav-right a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 1px;
+    background: var(--clay);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+  }
+  .nav-left a:hover::after, .nav-right a:hover::after { transform: scaleX(1); }
+  .nav-left a:hover, .nav-right a:hover { color: var(--clay); }
+  .logo {
+    text-align: center;
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--charcoal);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo span { display: block; font-size: 9px; font-family: var(--body); letter-spacing: 0.3em; font-weight: 300; color: var(--clay); margin-top: 3px; }
+  .nav-icon { font-size: 18px; cursor: pointer; color: var(--charcoal); text-decoration: none; position: relative; }
+  .cart-badge {
+    position: absolute; top: -6px; right: -8px;
+    background: var(--clay); color: var(--white);
+    font-size: 9px; width: 16px; height: 16px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: var(--body); font-weight: 500;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-lg) var(--space-xl) calc((100vw - var(--max-w))/2 + var(--space-md));
+    background: var(--cream);
+    position: relative;
+    z-index: 2;
+  }
+  .hero-content .display-heading { font-size: clamp(52px, 5.5vw, 82px); color: var(--charcoal); margin-bottom: var(--space-md); }
+  .hero-content .display-heading em { color: var(--clay); font-style: italic; }
+  .hero-sub {
+    font-size: 15px; color: #6B5D52;
+    max-width: 400px; margin-bottom: var(--space-lg); line-height: 1.8; font-weight: 300;
+  }
+  .hero-ctas { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }
+  .hero-ctas .link-cta {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+    color: var(--clay); text-decoration: none; border-bottom: 1px solid var(--warm-tan);
+    padding-bottom: 2px; transition: border-color var(--transition), color var(--transition);
+  }
+  .hero-ctas .link-cta:hover { color: var(--bark); border-color: var(--bark); }
+  .hero-stats { display: flex; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .hero-stat .number {
+    font-family: var(--display); font-size: 38px; font-weight: 300; color: var(--charcoal); line-height: 1;
+  }
+  .hero-stat .label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--clay); margin-top: 4px; }
+
+  .hero-visual {
+    position: relative;
+    background: var(--stone);
+    overflow: hidden;
+  }
+  .hero-visual .hero-img-mock {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #E0D5C5 0%, #C9B99A 40%, #A8896C 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  /* Decorative product mockup inside hero */
+  .hero-product-scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-float {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(4px);
+  }
+  .product-float.a { width: 260px; height: 260px; top: 20%; left: 15%; animation: floatA 6s ease-in-out infinite; }
+  .product-float.b { width: 180px; height: 180px; bottom: 20%; right: 18%; animation: floatB 7s ease-in-out infinite; }
+  .product-float.c { width: 120px; height: 120px; top: 15%; right: 25%; animation: floatA 5s ease-in-out infinite reverse; }
+
+  @keyframes floatA {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50%       { transform: translateY(-18px) rotate(3deg); }
+  }
+  @keyframes floatB {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50%       { transform: translateY(-12px) rotate(-2deg); }
+  }
+
+  .hero-label {
+    position: absolute; bottom: var(--space-md); left: var(--space-md);
+    background: rgba(247,244,239,0.92); backdrop-filter: blur(8px);
+    padding: 16px 20px; border-left: 2px solid var(--clay);
+  }
+  .hero-label p { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); }
+  .hero-label strong { font-family: var(--display); font-size: 22px; font-weight: 400; display: block; color: var(--charcoal); }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--white);
+    border-top: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+    padding: 20px 0;
+  }
+  .trust-bar-inner {
+    display: flex; align-items: center; justify-content: center;
+    gap: var(--space-lg); flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.1em; color: var(--bark); text-transform: uppercase; font-weight: 400;
+  }
+  .trust-item svg { width: 18px; height: 18px; stroke: var(--clay); fill: none; stroke-width: 1.5; }
+  .trust-sep { width: 1px; height: 24px; background: var(--stone); }
+
+  /* ── SECTION STANDARD ── */
+  .section { padding: var(--space-2xl) 0; }
+  .section-header { text-align: center; margin-bottom: var(--space-xl); }
+  .section-header .display-heading { font-size: clamp(38px, 4vw, 58px); }
+  .section-header p { font-size: 15px; color: #6B5D52; max-width: 460px; margin: var(--space-sm) auto 0; line-height: 1.8; }
+
+  /* ── CATEGORIES ── */
+  .categories { background: var(--cream); }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .cat-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--stone);
+  }
+  .cat-card:first-child { grid-row: span 2; aspect-ratio: auto; }
+  .cat-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .cat-card:hover .cat-bg { transform: scale(1.05); }
+  .cat-bg.c1 { background: linear-gradient(160deg, #D4C5B0 0%, #B09070 100%); }
+  .cat-bg.c2 { background: linear-gradient(160deg, #C5D4C0 0%, #8C9E8A 100%); }
+  .cat-bg.c3 { background: linear-gradient(160deg, #D4C5C0 0%, #B08880 100%); }
+  .cat-bg.c4 { background: linear-gradient(160deg, #C5C8D4 0%, #8085A0 100%); }
+  .cat-bg.c5 { background: linear-gradient(160deg, #D4CEC5 0%, #A09080 100%); }
+
+  /* Decorative shape inside cat */
+  .cat-shape {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.15;
+  }
+  .cat-shape svg { width: 60%; height: 60%; fill: white; }
+
+  .cat-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: var(--space-md);
+    background: linear-gradient(to top, rgba(44,32,20,0.7) 0%, transparent 100%);
+    color: var(--white);
+    transition: padding var(--transition);
+  }
+  .cat-card:hover .cat-info { padding-bottom: calc(var(--space-md) + 6px); }
+  .cat-info .eyebrow { color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+  .cat-info h3 { font-family: var(--display); font-size: 22px; font-weight: 400; line-height: 1.1; }
+  .cat-info .cat-arrow {
+    display: inline-block; margin-top: 8px;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.8);
+    opacity: 0; transform: translateX(-8px);
+    transition: opacity var(--transition), transform var(--transition);
+  }
+  .cat-card:hover .cat-arrow { opacity: 1; transform: translateX(0); }
+
+  /* ── BEST SELLERS ── */
+  .bestsellers { background: var(--white); }
+  .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
+  .product-card { cursor: pointer; }
+  .product-img {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--stone);
+    overflow: hidden;
+    margin-bottom: var(--space-sm);
+  }
+  .product-img .p-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .product-card:hover .p-bg { transform: scale(1.04); }
+  .p-bg.p1 { background: linear-gradient(145deg, #E5DCCe 0%, #C5A882 100%); }
+  .p-bg.p2 { background: linear-gradient(145deg, #D8E0D5 0%, #8C9E8A 100%); }
+  .p-bg.p3 { background: linear-gradient(145deg, #E8DADA 0%, #C09090 100%); }
+  .p-bg.p4 { background: linear-gradient(145deg, #DAE0E8 0%, #8090B0 100%); }
+  .product-actions {
+    position: absolute; bottom: -50px; left: 0; right: 0;
+    display: flex; gap: 2px;
+    transition: bottom var(--transition);
+  }
+  .product-card:hover .product-actions { bottom: 0; }
+  .product-actions button {
+    flex: 1;
+    padding: 13px;
+    background: rgba(44,32,20,0.88);
+    color: var(--cream);
+    font-family: var(--body);
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: background 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .product-actions button:hover { background: var(--bark); }
+  .product-badge {
+    position: absolute; top: var(--space-sm); left: var(--space-sm);
+    background: var(--sage); color: var(--white);
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 5px 10px; font-weight: 500;
+  }
+  .product-badge.new-badge { background: var(--clay); }
+  .product-info { padding: 2px 0; }
+  .product-info .product-name {
+    font-family: var(--display); font-size: 18px; font-weight: 400;
+    color: var(--charcoal); margin-bottom: 4px; line-height: 1.2;
+  }
+  .product-info .product-sub { font-size: 12px; color: #8B7A6A; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .product-info .product-price { font-family: var(--body); font-size: 14px; color: var(--bark); font-weight: 400; }
+  .product-info .product-price .old-price { text-decoration: line-through; color: #B0A090; margin-left: 8px; font-size: 13px; }
+  .stars { color: var(--warm-tan); font-size: 12px; margin-bottom: 4px; letter-spacing: 2px; }
+
+  /* ── FEATURES / USP ── */
+  .features { background: var(--cream); }
+  .features-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .features-visual {
+    position: relative;
+    height: 560px;
+    background: var(--stone);
+    overflow: hidden;
+  }
+  .features-visual .fv-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #D8CFC0 0%, #B0977E 60%, #8C7055 100%);
+  }
+  .features-grid-deco {
+    position: absolute; inset: 40px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+  .fv-block {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 14px; color: rgba(255,255,255,0.7);
+    font-style: italic;
+  }
+  .fv-block.highlight { background: rgba(255,255,255,0.25); color: rgba(255,255,255,0.9); font-size: 16px; }
+  .feat-accent {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 160px; height: 160px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+  }
+  .features-list { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .feat-item { display: grid; grid-template-columns: 52px 1fr; gap: var(--space-md); align-items: start; }
+  .feat-icon {
+    width: 52px; height: 52px;
+    border: 1px solid var(--stone);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .feat-icon svg { width: 22px; height: 22px; stroke: var(--clay); fill: none; stroke-width: 1.5; }
+  .feat-item h4 {
+    font-family: var(--display); font-size: 20px; font-weight: 400;
+    margin-bottom: 6px; color: var(--charcoal);
+  }
+  .feat-item p { font-size: 13px; color: #6B5D52; line-height: 1.8; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--bark); color: var(--cream); }
+  .testimonials .eyebrow { color: var(--warm-tan); }
+  .testimonials .display-heading { color: var(--cream); }
+  .testimonials .section-header p { color: rgba(247,244,239,0.65); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+  .testi-card {
+    padding: var(--space-lg);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background var(--transition);
+  }
+  .testi-card:hover { background: rgba(255,255,255,0.1); }
+  .testi-quote {
+    font-family: var(--display); font-size: 52px; line-height: 0.6;
+    color: var(--warm-tan); margin-bottom: var(--space-sm);
+  }
+  .testi-text {
+    font-family: var(--display); font-size: 18px; font-weight: 300; font-style: italic;
+    line-height: 1.7; color: rgba(247,244,239,0.9); margin-bottom: var(--space-md);
+  }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--warm-tan), var(--clay));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 18px; color: var(--cream); font-weight: 300;
+    flex-shrink: 0;
+  }
+  .testi-name { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; }
+  .testi-location { font-size: 11px; color: rgba(247,244,239,0.5); letter-spacing: 0.1em; }
+  .testi-stars { color: var(--warm-tan); font-size: 11px; letter-spacing: 3px; margin-bottom: var(--space-sm); }
+
+  /* ── GALLERY ── */
+  .gallery { background: var(--cream); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 260px);
+    gap: 3px;
+  }
+  .gal-item { overflow: hidden; cursor: pointer; position: relative; }
+  .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .gal-item:nth-child(4) { grid-column: span 2; }
+  .gal-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .gal-item:hover .gal-bg { transform: scale(1.06); }
+  .g1 { background: linear-gradient(135deg, #C5A882 0%, #8C6840 100%); }
+  .g2 { background: linear-gradient(135deg, #8C9E8A 0%, #5A7055 100%); }
+  .g3 { background: linear-gradient(135deg, #C09090 0%, #805050 100%); }
+  .g4 { background: linear-gradient(135deg, #D8CFC0 0%, #A0907A 100%); }
+  .g5 { background: linear-gradient(135deg, #8090B0 0%, #506090 100%); }
+  .g6 { background: linear-gradient(135deg, #B0A882 0%, #706840 100%); }
+  .g7 { background: linear-gradient(135deg, #A8B5A8 0%, #687870 100%); }
+  .gal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(44,32,20,0);
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition);
+  }
+  .gal-item:hover .gal-overlay { background: rgba(44,32,20,0.25); }
+  .gal-overlay span {
+    color: var(--white); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity var(--transition), transform var(--transition);
+  }
+  .gal-item:hover .gal-overlay span { opacity: 1; transform: translateY(0); }
+  .gallery-footer { text-align: center; margin-top: var(--space-lg); }
+  .gallery-footer p { font-size: 12px; color: #8B7A6A; letter-spacing: 0.1em; }
+  .gallery-footer a { color: var(--clay); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    background: var(--stone);
+    padding: var(--space-xl) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter::before {
+    content: 'N';
+    position: absolute;
+    font-family: var(--display);
+    font-size: 600px;
+    font-weight: 300;
+    color: rgba(168,137,108,0.07);
+    top: -100px; left: -80px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .newsletter-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+    position: relative;
+  }
+  .newsletter-copy .display-heading { font-size: clamp(36px, 3.5vw, 52px); }
+  .newsletter-copy p { font-size: 14px; color: #6B5D52; margin-top: var(--space-sm); line-height: 1.8; }
+  .nl-form { display: flex; flex-direction: column; gap: var(--space-sm); }
+  .nl-row { display: flex; gap: 2px; }
+  .nl-input {
+    flex: 1;
+    padding: 15px 20px;
+    background: var(--white);
+    border: 1px solid var(--stone);
+    font-family: var(--body); font-size: 14px; font-weight: 300;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color var(--transition);
+  }
+  .nl-input::placeholder { color: #B0A090; font-style: italic; }
+  .nl-input:focus { border-color: var(--clay); }
+  .nl-note { font-size: 11px; color: #8B7A6A; letter-spacing: 0.06em; }
+  .nl-perks { margin-top: var(--space-md); display: flex; flex-direction: column; gap: 8px; }
+  .nl-perk { font-size: 12px; color: var(--bark); display: flex; align-items: center; gap: 10px; }
+  .nl-perk::before { content: '✓'; color: var(--sage); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--charcoal); color: var(--cream); padding: var(--space-xl) 0 var(--space-md); }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+  .footer-brand .logo { color: var(--cream); }
+  .footer-brand .logo span { color: var(--warm-tan); }
+  .footer-brand p { font-size: 13px; color: rgba(247,244,239,0.55); margin-top: var(--space-md); line-height: 1.8; max-width: 280px; }
+  .footer-socials { display: flex; gap: var(--space-sm); margin-top: var(--space-md); }
+  .footer-socials a {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(247,244,239,0.6);
+    text-decoration: none; font-size: 13px;
+    transition: all var(--transition);
+  }
+  .footer-socials a:hover { border-color: var(--warm-tan); color: var(--warm-tan); }
+  .footer-col h5 {
+    font-family: var(--body);
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    font-weight: 500; color: var(--warm-tan);
+    margin-bottom: var(--space-md);
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a {
+    font-size: 13px; color: rgba(247,244,239,0.55);
+    text-decoration: none; font-weight: 300; letter-spacing: 0.04em;
+    transition: color var(--transition);
+  }
+  .footer-col ul li a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: var(--space-md);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: 11px; color: rgba(247,244,239,0.35); letter-spacing: 0.08em; }
+  .footer-payments { display: flex; gap: 8px; align-items: center; }
+  .payment-chip {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 10px; font-size: 10px; letter-spacing: 0.1em;
+    color: rgba(247,244,239,0.4); border-radius: 1px;
+  }
+
+  /* ── PRODUCT PAGE SECTION ── */
+  .product-page-section { background: var(--white); }
+  .product-page { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+  .product-thumbnails { display: flex; gap: 8px; margin-top: 8px; }
+  .thumb {
+    width: 70px; height: 70px; background: var(--stone); cursor: pointer;
+    border: 2px solid transparent; transition: border-color var(--transition);
+  }
+  .thumb.active { border-color: var(--clay); }
+  .product-main-img {
+    aspect-ratio: 4/5; background: var(--stone); position: relative; overflow: hidden;
+  }
+  .product-main-img .p-bg { position: absolute; inset: 0; }
+  .product-details { padding: var(--space-md) 0; }
+  .product-details .eyebrow { margin-bottom: 8px; }
+  .product-details h1 { font-family: var(--display); font-size: clamp(30px, 3vw, 44px); font-weight: 300; color: var(--charcoal); line-height: 1.1; margin-bottom: 10px; }
+  .product-details .p-sub { font-size: 13px; color: #8B7A6A; letter-spacing: 0.08em; margin-bottom: var(--space-sm); }
+  .product-rating { display: flex; align-items: center; gap: 10px; margin-bottom: var(--space-md); }
+  .product-rating .stars { margin-bottom: 0; }
+  .product-rating span { font-size: 12px; color: #8B7A6A; }
+  .product-pricing { margin-bottom: var(--space-md); }
+  .product-pricing .price { font-family: var(--display); font-size: 30px; font-weight: 300; color: var(--bark); }
+  .product-pricing .mrp { font-size: 14px; color: #B0A090; text-decoration: line-through; margin-left: 10px; }
+  .product-pricing .saving {
+    display: inline-block; background: #E8F0E7; color: var(--sage);
+    font-size: 11px; letter-spacing: 0.1em; padding: 3px 10px; margin-left: 10px; font-weight: 500;
+  }
+  .product-divider { border: none; border-top: 1px solid var(--stone); margin: var(--space-md) 0; }
+  .product-desc { font-size: 14px; color: #6B5D52; line-height: 1.9; margin-bottom: var(--space-md); }
+  .product-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: var(--space-md); }
+  .product-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #5C4A36; }
+  .product-features li::before { content: '—'; color: var(--clay); flex-shrink: 0; margin-top: 1px; }
+  .product-options { margin-bottom: var(--space-md); }
+  .product-options label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; color: var(--bark); display: block; margin-bottom: 10px; }
+  .color-swatches { display: flex; gap: 8px; }
+  .swatch {
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    border: 2px solid transparent; transition: border-color var(--transition);
+  }
+  .swatch.active { border-color: var(--bark); }
+  .product-cta { display: flex; flex-direction: column; gap: var(--space-sm); margin-bottom: var(--space-md); }
+  .btn-atc {
+    padding: 16px; background: var(--bark); color: var(--cream);
+    font-family: var(--body); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer;
+    transition: background var(--transition);
+  }
+  .btn-atc:hover { background: var(--charcoal); }
+  .btn-wishlist {
+    padding: 15px; background: transparent; color: var(--bark);
+    font-family: var(--body); font-size: 12px; font-weight: 400;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    border: 1px solid var(--stone); cursor: pointer;
+    transition: all var(--transition);
+  }
+  .btn-wishlist:hover { border-color: var(--clay); color: var(--clay); }
+  .trust-badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); }
+  .trust-badge { text-align: center; padding: var(--space-sm); background: var(--cream); }
+  .trust-badge svg { width: 20px; height: 20px; stroke: var(--clay); fill: none; stroke-width: 1.5; display: block; margin: 0 auto var(--space-xs); }
+  .trust-badge span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bark); display: block; font-weight: 400; line-height: 1.4; }
+
+  /* ── STYLE GUIDE SECTION ── */
+  .styleguide { background: var(--cream); }
+  .sg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+  .sg-block h3 { font-family: var(--display); font-size: 28px; font-weight: 300; margin-bottom: var(--space-md); }
+  .color-row { display: flex; gap: 3px; height: 60px; margin-bottom: var(--space-sm); }
+  .color-chip { flex: 1; position: relative; }
+  .color-chip::after {
+    content: attr(data-name);
+    position: absolute; bottom: -24px; left: 0;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bark);
+  }
+  .color-chip::before {
+    content: attr(data-hex);
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 9px; font-family: monospace; color: rgba(0,0,0,0.4);
+    white-space: nowrap;
+  }
+  .fonts-block { display: flex; flex-direction: column; gap: var(--space-md); }
+  .font-sample h4 { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--clay); margin-bottom: 6px; }
+  .font-sample .display-s { font-family: var(--display); font-size: 36px; font-weight: 300; }
+  .font-sample .body-s { font-family: var(--body); font-size: 15px; font-weight: 300; color: #6B5D52; }
+  .taglines-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .taglines-list li {
+    font-family: var(--display); font-size: 22px; font-style: italic; font-weight: 300;
+    color: var(--charcoal); padding-left: var(--space-md);
+    border-left: 2px solid var(--warm-tan);
+    line-height: 1.3;
+  }
+  .taglines-list li span { display: block; font-family: var(--body); font-size: 10px; font-style: normal; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-top: 4px; }
+
+  /* ── PAGE HEADER (inner pages) ── */
+  .page-title-bar {
+    padding: var(--space-lg) 0;
+    background: var(--stone);
+    text-align: center;
+  }
+  .page-title-bar .display-heading { font-size: clamp(40px, 5vw, 70px); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-visual { height: 50vw; }
+    .hero-content {
+      padding: var(--space-xl) var(--space-md);
+      order: 2;
+    }
+    .hero-visual { order: 1; }
+    .cat-grid { grid-template-columns: 1fr 1fr; }
+    .cat-card:first-child { grid-row: span 1; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-layout { grid-template-columns: 1fr; }
+    .features-visual { height: 320px; }
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 200px); }
+    .gallery-grid .gal-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+    .gallery-grid .gal-item:nth-child(4) { grid-column: span 1; }
+    .newsletter-inner { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .product-page { grid-template-columns: 1fr; }
+    .sg-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    :root {
+      --space-lg: 40px;
+      --space-xl: 60px;
+      --space-2xl: 80px;
+    }
+    .header-inner { grid-template-columns: auto 1fr auto; }
+    .nav-left { display: none; }
+    .cat-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+    .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: var(--space-md); }
+    .trust-badges { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: var(--space-md); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .nl-row { flex-direction: column; }
+    .header-inner { padding: 16px var(--space-sm); }
+    .container { padding: 0 var(--space-sm); }
+    .hero-content { padding: var(--space-lg) var(--space-sm); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  Free Delivery on Orders Above ₹799 <span>|</span> Premium Quality, Everyday Organisation <span>|</span> <strong>New Arrivals Now Live</strong>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <nav class="nav-left">
+      <a href="#">Shop</a>
+      <a href="#">Collections</a>
+      <a href="#">Journal</a>
+    </nav>
+    <a href="#" class="logo">Nestique<span>Collection</span></a>
+    <nav class="nav-right">
+      <a href="#">About</a>
+      <a href="#" class="nav-icon">🔍</a>
+      <a href="#" class="nav-icon" style="position:relative;">
+        🛒
+        <span class="cart-badge">2</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  HERO                                        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="eyebrow">Premium Kitchen Organisation</span>
+    <h1 class="display-heading">
+      A Kitchen That<br>
+      Feels Like<br>
+      <em>You.</em>
+    </h1>
+    <p class="hero-sub">
+      Thoughtfully designed storage and organisation essentials — crafted for the modern home that values both beauty and function.
+    </p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Explore the Collection</a>
+      <a href="#" class="link-cta">View Lookbook →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="number">12K+</div>
+        <div class="label">Happy Homes</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">4.9</div>
+        <div class="label">Average Rating</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">40+</div>
+        <div class="label">Products</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-mock">
+      <div class="hero-product-scene">
+        <div class="product-float a"></div>
+        <div class="product-float b"></div>
+        <div class="product-float c"></div>
+      </div>
+      <div class="hero-label">
+        <p>New Arrival</p>
+        <strong>Aero Fridge Collection</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Food-Safe Certified
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Ships in 24–48 hrs
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      Easy 7-Day Returns
+    </div>
+    <div class="trust-sep"></div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      BPA-Free Materials
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  CATEGORIES                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section categories">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Shop by Category</span>
+      <h2 class="display-heading">Every Corner,<br><em>Considered.</em></h2>
+      <p>From the refrigerator shelf to the countertop, we have every storage need covered with style.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <div class="cat-bg c1"></div>
+        <div class="cat-shape">
+          <svg viewBox="0 0 100 100"><rect x="20" y="15" width="60" height="70" rx="4"/><rect x="30" y="10" width="10" height="10" rx="2"/><rect x="60" y="10" width="10" height="10" rx="2"/></svg>
+        </div>
+        <div class="cat-info">
+          <span class="eyebrow">Fridge Solutions</span>
+          <h3>Refrigerator<br>Organisers</h3>
+          <span class="cat-arrow">Shop Now →</span>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-bg c2"></div>
+        <div class="cat-shape">
+          <svg viewBox="0 0 100 100"><ellipse cx="50" cy="55" rx="32" ry="28"/><ellipse cx="50" cy="40" rx="32" ry="16"/></svg>
+        </div>
+        <div class="cat-info">
+          <span class="eyebrow">Meal Prep</span>
+          <h3>Lunch Box<br>Collection</h3>
+          <span class="cat-arrow">Shop Now →</span>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-bg c3"></div>
+        <div class="cat-shape">
+          <svg viewBox="0 0 100 100"><path d="M35 80 L35 35 Q35 20 50 20 Q65 20 65 35 L65 80"/><ellipse cx="50" cy="80" rx="18" ry="5"/><path d="M42 35 Q50 28 58 35"/></svg>
+        </div>
+        <div class="cat-info">
+          <span class="eyebrow">Pour & Store</span>
+          <h3>Oil Dispensers<br>& Pourers</h3>
+          <span class="cat-arrow">Shop Now →</span>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-bg c4"></div>
+        <div class="cat-shape">
+          <svg viewBox="0 0 100 100"><rect x="15" y="40" width="70" height="50" rx="3"/><path d="M20 40 L30 20 L70 20 L80 40"/><line x1="50" y1="20" x2="50" y2="65"/></svg>
+        </div>
+        <div class="cat-info">
+          <span class="eyebrow">Gifting</span>
+          <h3>Raffle Baskets<br>& Gift Sets</h3>
+          <span class="cat-arrow">Shop Now →</span>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-bg c5"></div>
+        <div class="cat-shape">
+          <svg viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="50" rx="3"/><polyline points="20,45 50,25 80,45"/></svg>
+        </div>
+        <div class="cat-info">
+          <span class="eyebrow">Bundle Deals</span>
+          <h3>Starter Kits &<br>Combos</h3>
+          <span class="cat-arrow">Shop Now →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  BEST SELLERS                               -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section bestsellers">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Most Loved</span>
+      <h2 class="display-heading">Best Sellers</h2>
+      <p>Pieces our community keeps coming back to — and gifting to everyone they love.</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card reveal">
+        <div class="product-img">
+          <div class="p-bg p1"></div>
+          <span class="product-badge new-badge">Best Seller</span>
+          <div class="product-actions">
+            <button>Quick View</button>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="stars">★★★★★</div>
+          <div class="product-name">Aero Fridge Container</div>
+          <div class="product-sub">Set of 3 — Stackable, Airtight</div>
+          <div class="product-price">₹849 <span class="old-price">₹1,099</span></div>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img">
+          <div class="p-bg p2"></div>
+          <span class="product-badge">New Arrival</span>
+          <div class="product-actions">
+            <button>Quick View</button>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="stars">★★★★★</div>
+          <div class="product-name">Clasp Lunch Box</div>
+          <div class="product-sub">2-Tier, Leak-Proof</div>
+          <div class="product-price">₹649</div>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img">
+          <div class="p-bg p3"></div>
+          <span class="product-badge new-badge">Best Seller</span>
+          <div class="product-actions">
+            <button>Quick View</button>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="stars">★★★★☆</div>
+          <div class="product-name">Slimline Oil Dispenser</div>
+          <div class="product-sub">500ml — No-drip Nozzle</div>
+          <div class="product-price">₹549 <span class="old-price">₹699</span></div>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img">
+          <div class="p-bg p4"></div>
+          <div class="product-actions">
+            <button>Quick View</button>
+            <button>Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="stars">★★★★★</div>
+          <div class="product-name">Woven Raffle Basket</div>
+          <div class="product-sub">Handcrafted — Gift-ready</div>
+          <div class="product-price">₹1,199</div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center; margin-top: var(--space-xl);">
+      <a href="#" class="btn-ghost">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  FEATURES / USP                             -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section features">
+  <div class="container">
+    <div class="features-layout">
+      <div class="features-visual reveal">
+        <div class="fv-bg"></div>
+        <div class="features-grid-deco">
+          <div class="fv-block">Airtight Seal</div>
+          <div class="fv-block highlight">BPA-Free</div>
+          <div class="fv-block highlight">Food-Safe</div>
+          <div class="fv-block">Premium Feel</div>
+        </div>
+        <div class="feat-accent"></div>
+      </div>
+      <div class="features-list reveal">
+        <span class="eyebrow">The Nestique Promise</span>
+        <h2 class="display-heading" style="font-size: clamp(36px, 3.5vw, 52px); margin-bottom: var(--space-lg);">
+          Designed for<br>the Way You <em style="color:var(--clay)">Live.</em>
+        </h2>
+
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h4>Food-Safe, Always</h4>
+            <p>Every product is made from certified, BPA-free materials — safe for your family and respectful of your food.</p>
+          </div>
+        </div>
+
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <h4>Built to Last</h4>
+            <p>Our rigorous quality testing ensures each piece withstands daily use — no warping, no cracking, no compromise.</p>
+          </div>
+        </div>
+
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div>
+            <h4>Thoughtful Design</h4>
+            <p>Clean lines, neutral tones, and modular shapes that complement any kitchen — because organisation should feel beautiful.</p>
+          </div>
+        </div>
+
+        <div class="feat-item">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <h4>Curated & Consistent</h4>
+            <p>Each collection is designed as a cohesive set — so every piece you own from Nestique looks like it belongs together.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  TESTIMONIALS                               -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Real Homes, Real Stories</span>
+      <h2 class="display-heading">What Our Community<br><em>Is Saying</em></h2>
+      <p>From Mumbai flats to Bangalore studios — here is how Nestique is changing everyday kitchens.</p>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">I have tried so many storage brands, but Nestique just feels different. The quality is something you notice immediately when you hold it.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Priya M.</div>
+            <div class="testi-location">Mumbai, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">My fridge actually looks like those aesthetic Pinterest photos now. My family thinks I hired a home stylist. It was just Nestique.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sneha R.</div>
+            <div class="testi-location">Bengaluru, Karnataka</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Gifted the raffle basket to my sister for her housewarming. She called me immediately saying it was the most beautiful, useful gift she had ever received.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Anjali K.</div>
+            <div class="testi-location">Pune, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  LIFESTYLE GALLERY                          -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">As Seen In Homes</span>
+      <h2 class="display-heading">The Nestique<br><em>Aesthetic</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal-item"><div class="gal-bg g1"></div><div class="gal-overlay"><span>View Product</span></div></div>
+      <div class="gal-item"><div class="gal-bg g2"></div><div class="gal-overlay"><span>View Product</span></div></div>
+      <div class="gal-item"><div class="gal-bg g3"></div><div class="gal-overlay"><span>View Product</span></div></div>
+      <div class="gal-item"><div class="gal-bg g4"></div><div class="gal-overlay"><span>View Product</span></div></div>
+      <div class="gal-item"><div class="gal-bg g5"></div><div class="gal-overlay"><span>View Product</span></div></div>
+      <div class="gal-item"><div class="gal-bg g6"></div><div class="gal-overlay"><span>View Product</span></div></div>
+      <div class="gal-item"><div class="gal-bg g7"></div><div class="gal-overlay"><span>View Product</span></div></div>
+    </div>
+    <div class="gallery-footer">
+      <p>Share your Nestique home — tag us <a href="#">@NestiqueCollection</a> on Instagram for a chance to be featured.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  PRODUCT PAGE TEMPLATE                      -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section product-page-section">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:left; margin-bottom: var(--space-lg);">
+      <span class="eyebrow">Product Page Template</span>
+      <h2 class="display-heading" style="font-size: clamp(32px, 3vw, 46px);">Product Page Layout</h2>
+    </div>
+    <div class="product-page">
+      <div>
+        <div class="product-main-img reveal">
+          <div class="p-bg p1"></div>
+        </div>
+        <div class="product-thumbnails">
+          <div class="thumb active"></div>
+          <div class="thumb" style="background:#D8E0D5;"></div>
+          <div class="thumb" style="background:#E8DADA;"></div>
+          <div class="thumb" style="background:#DAE0E8;"></div>
+        </div>
+      </div>
+      <div class="product-details reveal">
+        <span class="eyebrow">Refrigerator Organisers</span>
+        <h1>Aero Fridge Container</h1>
+        <p class="p-sub">Set of 3 — Stackable, Airtight Seal</p>
+        <div class="product-rating">
+          <div class="stars">★★★★★</div>
+          <span>4.9 (284 reviews)</span>
+        </div>
+        <div class="product-pricing">
+          <span class="price">₹849</span>
+          <span class="mrp">₹1,099</span>
+          <span class="saving">Save 23%</span>
+        </div>
+        <hr class="product-divider">
+        <p class="product-desc">Keep your refrigerator beautifully organised with our Aero Fridge Containers. Designed to maximise shelf space while ensuring your food stays fresher for longer, these stackable containers bring calm to the chaos of everyday storage.</p>
+        <ul class="product-features">
+          <li>Set of 3 stackable containers in graduating sizes</li>
+          <li>Airtight, click-lock lid — leak-proof and odour-sealed</li>
+          <li>Certified BPA-free and food-grade safe plastic</li>
+          <li>Transparent body for instant visibility of contents</li>
+          <li>Freezer and microwave safe (without lid)</li>
+          <li>Easy-grip sides, dishwasher safe</li>
+        </ul>
+        <hr class="product-divider">
+        <div class="product-options">
+          <label>Colour — <strong>Frost Clear</strong></label>
+          <div class="color-swatches">
+            <div class="swatch active" style="background:#E8E5E0;"></div>
+            <div class="swatch" style="background:#8C9E8A;"></div>
+            <div class="swatch" style="background:#C09090;"></div>
+            <div class="swatch" style="background:#8090B0;"></div>
+          </div>
+        </div>
+        <hr class="product-divider">
+        <div class="product-cta">
+          <button class="btn-atc">Add to Cart — ₹849</button>
+          <button class="btn-wishlist">♡ Save to Wishlist</button>
+        </div>
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>BPA-Free Certified</span>
+          </div>
+          <div class="trust-badge">
+            <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span>Free Delivery ₹799+</span>
+          </div>
+          <div class="trust-badge">
+            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            <span>7-Day Returns</span>
+          </div>
+          <div class="trust-badge">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span>12,000+ Happy Homes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  STYLE GUIDE                                -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section styleguide">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:left;">
+      <span class="eyebrow">Brand Identity</span>
+      <h2 class="display-heading" style="font-size: clamp(36px, 4vw, 54px);">Style Guide &<br><em>Brand Standards</em></h2>
+    </div>
+    <div class="sg-grid">
+      <div class="sg-block reveal">
+        <h3>Colour Palette</h3>
+        <div class="color-row" style="margin-bottom: 36px;">
+          <div class="color-chip" data-name="Cream" data-hex="#F7F4EF" style="background:#F7F4EF; border: 1px solid var(--stone);"></div>
+          <div class="color-chip" data-name="Stone" data-hex="#E8E2D9" style="background:#E8E2D9;"></div>
+          <div class="color-chip" data-name="Warm Tan" data-hex="#C9B99A" style="background:#C9B99A;"></div>
+          <div class="color-chip" data-name="Clay" data-hex="#A8896C" style="background:#A8896C;"></div>
+          <div class="color-chip" data-name="Bark" data-hex="#5C4A36" style="background:#5C4A36;"></div>
+          <div class="color-chip" data-name="Charcoal" data-hex="#2B2520" style="background:#2B2520;"></div>
+        </div>
+        <div class="color-row" style="margin-top: 36px; height: 40px;">
+          <div class="color-chip" style="background:#8C9E8A; flex: 1;" data-name="Sage" data-hex="#8C9E8A"></div>
+          <div class="color-chip" style="background:#E8D5C4; flex: 1;" data-name="Blush" data-hex="#E8D5C4"></div>
+        </div>
+
+        <div style="margin-top: 56px;">
+          <h3>Premium Taglines</h3>
+          <ul class="taglines-list" style="margin-top: var(--space-md);">
+            <li>Organise with Intention. Live with Ease.<span>Primary Brand Tagline</span></li>
+            <li>A Place for Everything. An Aesthetic for Life.<span>Lifestyle Campaign</span></li>
+            <li>Your Kitchen. Beautifully Considered.<span>Product Page Header</span></li>
+            <li>Where Function Meets Elegance, Every Day.<span>Brand Story</span></li>
+            <li>The Art of the Well-Kept Home.<span>Seasonal Campaign</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sg-block reveal">
+        <h3>Typography System</h3>
+        <div class="fonts-block">
+          <div class="font-sample">
+            <h4>Display / Headlines — Cormorant Garamond</h4>
+            <div class="display-s">The Modern Kitchen</div>
+            <div class="display-s" style="font-style:italic; color: var(--clay);">Beautifully Organised</div>
+          </div>
+          <div class="font-sample">
+            <h4>Body / UI — Jost</h4>
+            <div class="body-s">Thoughtfully designed storage and organisation essentials — crafted for the modern home that values both beauty and function.</div>
+            <div style="margin-top:10px; font-family: var(--body); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; color: var(--bark);">EYEBROW / BUTTON TEXT</div>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg);">
+          <h3>Button System</h3>
+          <div style="display: flex; flex-direction: column; gap: var(--space-sm); margin-top: var(--space-md);">
+            <div><a href="#" class="btn-primary">Primary Action</a></div>
+            <div><a href="#" class="btn-ghost">Secondary Action</a></div>
+            <div style="margin-top: 8px;">
+              <div style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; color: var(--clay); border-bottom: 1px solid var(--warm-tan); display: inline; padding-bottom: 2px;">Inline Text Link →</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--space-lg);">
+          <h3>Layout Rules</h3>
+          <div style="font-size: 13px; color: #6B5D52; line-height: 2; margin-top: var(--space-sm);">
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Max Width:</strong> 1280px with 32px gutters<br>
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Section Padding:</strong> 96–140px vertical<br>
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Grid Gap:</strong> 2–3px (editorial), 16–32px (cards)<br>
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Border Radius:</strong> 2px maximum (near-flat)<br>
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Line Height:</strong> 1.08 display / 1.7–1.9 body<br>
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Mobile Font Scale:</strong> clamp(32px, 7vw, 52px)<br>
+            <strong style="font-family: var(--display); font-size: 15px; font-weight: 400;">Mobile Padding:</strong> 16px gutters / 60px sections
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  NEWSLETTER                                 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-copy reveal">
+        <span class="eyebrow">Join the Inner Circle</span>
+        <h2 class="display-heading">
+          First to Know.<br>
+          First to <em style="color:var(--clay)">Own.</em>
+        </h2>
+        <p>Early access to new arrivals, styling inspiration, exclusive members-only offers, and the occasional kitchen organising tip that actually works.</p>
+        <div class="nl-perks">
+          <div class="nl-perk">10% off your first order</div>
+          <div class="nl-perk">Early access to new collections</div>
+          <div class="nl-perk">Exclusive gifting ideas &amp; seasonal bundles</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="nl-form">
+          <div class="nl-row">
+            <input class="nl-input" type="text" placeholder="Your first name">
+          </div>
+          <div class="nl-row">
+            <input class="nl-input" type="email" placeholder="Your email address" style="flex:1;">
+            <button class="btn-primary" style="white-space:nowrap;">Subscribe</button>
+          </div>
+          <p class="nl-note">We respect your privacy. Unsubscribe at any time. No spam, ever.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  FOOTER                                     -->
+<!-- ═══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Nestique<span>Collection</span></a>
+        <p>Premium kitchen organisation and storage essentials, thoughtfully designed for the modern home. Making everyday kitchens more beautiful, one product at a time.</p>
+        <div class="footer-socials">
+          <a href="#">in</a>
+          <a href="#">ig</a>
+          <a href="#">yt</a>
+          <a href="#">fb</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#">Fridge Organisers</a></li>
+          <li><a href="#">Lunch Boxes</a></li>
+          <li><a href="#">Oil Dispensers</a></li>
+          <li><a href="#">Raffle Baskets</a></li>
+          <li><a href="#">Combo Sets</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Help</h5>
+        <ul>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Bulk / B2B Orders</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Nestique Collection. All rights reserved. Made with care in India.</p>
+      <div class="footer-payments">
+        <div class="payment-chip">Razorpay</div>
+        <div class="payment-chip">UPI</div>
+        <div class="payment-chip">Visa</div>
+        <div class="payment-chip">Mastercard</div>
+        <div class="payment-chip">COD</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, (i % 4) * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Sticky header shadow
+  window.addEventListener('scroll', () => {
+    document.querySelector('header').style.boxShadow =
+      window.scrollY > 10 ? '0 2px 24px rgba(44,32,20,0.08)' : 'none';
+  });
+</script>
+</body>
+</html>
